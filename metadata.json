@@ -1,0 +1,6 @@
+{
+  "name": "72",
+  "description": "A notebook-styled, non-AI companion built specifically for AuDHD brains to track 72-hour hyperfixation sprints, practice active recall, and download study notes safely.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
