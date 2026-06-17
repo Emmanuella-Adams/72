@@ -8,13 +8,13 @@ I created **72** as a personal, offline-first study companion. It’s a tool bui
 
 ## 🖤 Why I Built This (My Backstory)
 
-For a long time, I was stuck in an exhausting loop. I would find a fascinating new topic—like Python, CSS grid, or baking—get intensely hyperfocused for a brief 72 hours, and then immediately get overwhelmed. The anxiety of time-blindness would kick in. I’d find myself rushing to finish, resorting to quick copy-pastes or over-relying on AI to complete topics just to alleviate the pressure. In the end, the rush meant I forgot everything I had supposedly "learned," leaving me feeling exhausted and disconnected.
+For a long time, I was stuck in an exhausting loop. I would find a fascinating new topic (like Python, CSS grid, or baking),get intensely hyperfocused for a brief 72 hours, and then immediately get overwhelmed. The anxiety of time-blindness would kick in. I’d find myself rushing to finish, resorting to quick copy-pastes or over-relying on AI to complete topics just to alleviate the pressure. In the end, the rush meant I forgot everything I had supposedly "learned," leaving me feeling exhausted and disconnected.
 
 Carrying AuDHD made this feel ten times more intense. People saw me as capable, but inside, I just felt tired of the anxiety, tired of trying to please people, and tired of rushing toward imaginary finish lines. 
 
 I realized I wanted to change how I approach learning. I needed a companion that let me take things *slowly*. I didn't want rigid grading bots, competitive streaks, or unsolicited AI engines judging how well I explained a concept.
 
-As one of my pet projects, I got help from my AI companion here to build **72** (Seventy-Two)—a quiet, gorgeous notebook that acts as a safe harbor for my 72-hour hyperfocus cycles. Here, you have permission to study without pressure.
+As one of my pet projects, I got help from my AI companion here to build **72** (Seventy-Two). it is  quiet, gorgeous notebook that acts as a safe harbor for my 72-hour hyperfocus cycles. Here, you have permission to study without pressure.
 
 ---
 
