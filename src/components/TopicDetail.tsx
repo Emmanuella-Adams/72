@@ -18,7 +18,9 @@ import {
   CalendarDays,
   PenTool,
   AlertTriangle,
-  Check
+  Check,
+  ChevronDown,
+  X
 } from "lucide-react";
 
 interface TopicDetailProps {
@@ -48,6 +50,7 @@ export default function TopicDetail({ topic, onUpdateTopic }: TopicDetailProps) 
 
   const [message, setMessage] = useState("");
   const [exportFileName, setExportFileName] = useState("");
+  const [isExportMenuOpen, setIsExportMenuOpen] = useState(false);
 
   // Sync state if topic swaps
   useEffect(() => {
@@ -62,6 +65,7 @@ export default function TopicDetail({ topic, onUpdateTopic }: TopicDetailProps) 
     setMessage("");
     const titleClean = topic.title.replace(/[^a-z0-9]/gi, '_').toLowerCase();
     setExportFileName(`72_sprint_${titleClean}`);
+    setIsExportMenuOpen(false);
   }, [topic.id, topic.title]);
 
   // Calculate automated score suggestion based on checked metrics
@@ -177,27 +181,56 @@ Made with Seventy-Two (72)
           </p>
         </div>
 
-        {/* Notes downloader with file name editing capabilities */}
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full md:w-auto">
-          <div className="flex items-center bg-white/5 border border-white/10 rounded-lg px-2.5 py-1.5 focus-within:border-white/20 transition-all">
-            <span className="font-mono text-[10px] text-stone-500 mr-2 uppercase shrink-0">File:</span>
-            <input
-              type="text"
-              value={exportFileName}
-              onChange={(e) => setExportFileName(e.target.value)}
-              placeholder="filename"
-              className="bg-transparent text-white font-mono text-xs focus:outline-none w-32 sm:w-40 border-b border-dashed border-white/10 focus:border-white/30 pb-0.5"
-            />
-            <span className="font-mono text-[10px] text-stone-500 shrink-0 select-none ml-1">.txt</span>
-          </div>
+        {/* Minimalist export popover menu */}
+        <div className="relative">
           <button
-            onClick={triggerNotesDownload}
-            className="px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white font-mono text-xs flex items-center justify-center gap-1.5 cursor-pointer border border-white/10 transition-all shadow-md shrink-0 active:scale-95"
-            title="Download study materials offline"
+            onClick={() => setIsExportMenuOpen(!isExportMenuOpen)}
+            className="px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-stone-300 hover:text-white font-mono text-xs flex items-center gap-1.5 cursor-pointer border border-white/10 transition-all shadow-md shrink-0 active:scale-95"
+            title="Export Options"
           >
-            <FileDown className="w-3.5 h-3.5 text-stone-300" />
-            <span>Export Notes</span>
+            <FileDown className="w-4 h-4 text-stone-300" />
+            <span>Export & Downloads</span>
+            <ChevronDown className={`w-3.5 h-3.5 ml-0.5 text-stone-400 transition-transform duration-200 ${isExportMenuOpen ? "rotate-180" : ""}`} />
           </button>
+
+          {isExportMenuOpen && (
+            <div className="absolute right-0 mt-2 w-72 bg-[#0e0e0e]/95 backdrop-blur-2xl border border-white/15 rounded-2xl p-4 shadow-2xl z-40 animate-fade-in flex flex-col gap-3">
+              <div className="flex items-center justify-between border-b border-white/5 pb-2">
+                <span className="font-mono text-[10px] text-stone-400 font-bold uppercase tracking-wider">Export Settings</span>
+                <button 
+                  onClick={() => setIsExportMenuOpen(false)}
+                  className="p-1 hover:bg-white/5 text-stone-500 hover:text-stone-300 rounded cursor-pointer transition-all"
+                >
+                  <X className="w-3 h-3" />
+                </button>
+              </div>
+
+              <div className="flex flex-col gap-1.5">
+                <label className="font-mono text-[9px] text-stone-400 uppercase tracking-widest block">Text File Name:</label>
+                <div className="flex items-center bg-white/5 border border-white/10 rounded-lg px-2.5 py-1.5 focus-within:border-white/20 transition-all">
+                  <input
+                    type="text"
+                    value={exportFileName}
+                    onChange={(e) => setExportFileName(e.target.value)}
+                    placeholder="filename"
+                    className="bg-transparent text-white font-mono text-xs focus:outline-none w-full border-b border-dashed border-white/10 focus:border-white/30"
+                  />
+                  <span className="font-mono text-[10px] text-stone-500 shrink-0 select-none ml-1">.txt</span>
+                </div>
+              </div>
+
+              <button
+                onClick={() => {
+                  triggerNotesDownload();
+                  setIsExportMenuOpen(false);
+                }}
+                className="w-full px-3 py-2 bg-white text-black hover:bg-stone-200 font-mono text-xs font-semibold rounded-lg flex items-center justify-center gap-1.5 cursor-pointer transition-all shadow-md active:scale-95"
+              >
+                <FileDown className="w-3.5 h-3.5 text-black" />
+                <span>Save to offline file</span>
+              </button>
+            </div>
+          )}
         </div>
       </div>
 

@@ -12,12 +12,13 @@ import Dashboard from "./components/Dashboard";
 import CreateTopic from "./components/CreateTopic";
 import TopicList from "./components/TopicList";
 import TopicDetail from "./components/TopicDetail";
-import { Info, Sparkles, AlertCircle, Heart, Github } from "lucide-react";
+import { Info, Sparkles, AlertCircle, Heart, Github, BookOpen, X } from "lucide-react";
 
 export default function App() {
   const [topics, setTopics] = useState<LearningTopic[]>([]);
   const [selectedTopic, setSelectedTopic] = useState<LearningTopic | null>(null);
   const [viewDueOnly, setViewDueOnly] = useState(false);
+  const [isStoryOpen, setIsStoryOpen] = useState(false);
 
   // Initialize topics lists on load
   useEffect(() => {
@@ -63,7 +64,7 @@ export default function App() {
   return (
     <div className="min-h-screen px-4 py-8 md:py-12 max-w-7xl mx-auto selection:bg-white selection:text-black">
       {/* App Header */}
-      <Header />
+      <Header onOpenStory={() => setIsStoryOpen(true)} />
 
       {/* Stats Dashboard */}
       <Dashboard 
@@ -158,6 +159,62 @@ export default function App() {
           </span>
         </div>
       </footer>
+
+      {/* Emma's Story/Origins Modal at absolute root level for flawless overlay z-indexing */}
+      {isStoryOpen && (
+        <div className="fixed inset-0 bg-black/95 backdrop-blur-lg z-[999999] flex items-center justify-center p-4 overflow-y-auto animate-fade-in">
+          <div className="relative w-full max-w-2xl bg-[#0e0e0e] border border-white/15 rounded-3xl p-6 md:p-8 shadow-2xl shadow-black/90 my-auto">
+            {/* Close Button */}
+            <button
+              onClick={() => setIsStoryOpen(false)}
+              className="absolute top-5 right-5 p-1.5 rounded-full bg-white/5 border border-white/10 hover:bg-white/15 text-stone-400 hover:text-white cursor-pointer transition-colors"
+            >
+              <X className="w-4 h-4" />
+            </button>
+
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-9 h-9 rounded-full bg-white/10 border border-white/20 backdrop-blur-md flex items-center justify-center">
+                <span className="text-xl font-serif font-black text-white italic tracking-tighter">72</span>
+              </div>
+              <h2 className="text-xl font-serif font-bold text-white">How "72" Came to Be</h2>
+            </div>
+            
+            <p className="text-[11px] font-mono text-stone-400 mb-6 uppercase tracking-wider">
+              A raw note from Emma Adams to fellow hyperfocused learners
+            </p>
+
+            <div className="space-y-4 text-xs text-stone-300 font-sans leading-relaxed max-h-[350px] overflow-y-auto pr-2">
+              <p>
+                "I have a confession to make. I'm completely time-blind. When I try to learn something new, like Python or coding, I get incredibly excited, start hyperfocusing, and then immediately get overwhelmed. My head physically aches, and I begin to rush. Where am I rushing to? I don't know."
+              </p>
+              <p>
+                "But I feel this constant, heavy pressure. I have AuDHD, which makes everything ten times more intense. People see me as a strong learner, but inside, I carry a lot of anxiety and tire easily from the constant, exhausting pace."
+              </p>
+              <p>
+                "To escape that pressure, I had a bad habit of rushing through content just to declare it finished. I'd lean too heavily on AI as a shortcut to get fast answers, completely bypassing my own understanding. And then, because I rushed, I would forget everything within a few days."
+              </p>
+              <p>
+                "On top of that, I have a hyperfixation schedule that completely morphs every 72 hours. I have a long trail of half-finished books, half-coded apps, and fleeting ideas. The moment anxiety sets in about not finishing, my brain immediately screches: <em>'What if we use AI to do it fast?'</em>"
+              </p>
+              <p>
+                "I got tired of the anxiety. I got tired of the constant pressure. I wanted to build a quiet sanctuary. A space where there are no grading bots, no competitive visual badges, and no automated algorithms evaluating whether my explanation was perfect. I just wanted a simple companion where I could type out my thoughts, honestly score my own understanding, download my study materials, and take it slow."
+              </p>
+              <p className="border-t border-white/10 pt-4 mt-4 text-white font-serif italic">
+                "So, as one of my pet projects, I got help from my AI companion here to build <strong>Seventy-Two</strong>. It's a tribute to my 72-hour hyperfocus cycles. Here, our interest is a beautiful sprint, the pace is entirely ours, and we learn one sentence at a time. No rushing, no shame."
+              </p>
+            </div>
+
+            <div className="mt-8 pt-4 border-t border-white/10 flex justify-end">
+              <button
+                onClick={() => setIsStoryOpen(false)}
+                className="px-5 py-2.5 bg-white text-black font-mono font-bold text-xs rounded-xl hover:bg-stone-200 transition-all cursor-pointer shadow-lg"
+              >
+                Close & Return to Practice
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
