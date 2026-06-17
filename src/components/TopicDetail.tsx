@@ -47,6 +47,7 @@ export default function TopicDetail({ topic, onUpdateTopic }: TopicDetailProps) 
   const [scoreSlider, setScoreSlider] = useState(topic.evaluation?.score ?? 50);
 
   const [message, setMessage] = useState("");
+  const [exportFileName, setExportFileName] = useState("");
 
   // Sync state if topic swaps
   useEffect(() => {
@@ -59,7 +60,9 @@ export default function TopicDetail({ topic, onUpdateTopic }: TopicDetailProps) 
     setThoughts(topic.evaluation?.thoughts ?? "");
     setScoreSlider(topic.evaluation?.score ?? 50);
     setMessage("");
-  }, [topic.id]);
+    const titleClean = topic.title.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+    setExportFileName(`72_sprint_${titleClean}`);
+  }, [topic.id, topic.title]);
 
   // Calculate automated score suggestion based on checked metrics
   const calculatedSuggestedScore = () => {
@@ -100,54 +103,43 @@ export default function TopicDetail({ topic, onUpdateTopic }: TopicDetailProps) 
 
   // Notes file export/download capability!
   const triggerNotesDownload = () => {
-    const titleClean = topic.title.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-    const filename = `72_sprint_${titleClean}.txt`;
+    const filename = `${exportFileName.trim() || '72_sprint'}.txt`;
 
-    let fileContent = `=========================================
-72 FOCUS REGISTRY NOTES: ${topic.title.toUpperCase()}
-=========================================
+    let fileContent = `==================================================
+72 REGISTER REGISTER: ${topic.title.toUpperCase()}
+==================================================
 Registered: ${new Date(topic.createdAt).toLocaleString()}
-Current Interval: ${topic.intervalDays} Spaced Repetition Days
-Next Review Date: ${new Date(topic.nextReviewDate).toLocaleDateString()}
-Confidence Class: ${confidence.toUpperCase()}
+Spaced Repetition Schedule: ${topic.intervalDays} Day Interval
+Next Active Recall Session: ${new Date(topic.nextReviewDate).toLocaleDateString()}
+Confidence Level: ${confidence.toUpperCase()}
 Latest Self-Assessment Score: ${scoreSlider}/100
 
------------------------------------------
-ORIGINAL NOTES:
------------------------------------------
+[ORIGINAL STUDY SOURCE NOTES]
 ${topic.notes}
 
------------------------------------------
-LATEST SELF-EXPLANATION:
------------------------------------------
+[LATEST ACTIVE-RECALL SELF-EXPLANATION]
 ${explanation || "No explanation logged yet."}
 
------------------------------------------
-SELF-REFLECTION THOUGHTS:
------------------------------------------
+[SELF-REFLECTION THOUGHTS]
 ${thoughts || "No reflective thoughts written yet."}
 
------------------------------------------
-ACTIVE RECALL TEST PROMPTS:
------------------------------------------
+[ACTIVE RECALL TEST PROMPTS / QUESTIONS]
 ${topic.customPromptQuestions.length > 0
-  ? topic.customPromptQuestions.map((q, idx) => `[Q${idx + 1}]: ${q}`).join("\n")
-  : "None."
+  ? topic.customPromptQuestions.map((q, idx) => `Q${idx + 1}: ${q}`).join("\n")
+  : "None configured."
 }
 
------------------------------------------
-HISTORIC RETENTION LOGS:
------------------------------------------
+[HISTORIC RETENTION ATTEMPTS LOG]
 ${topic.history.length > 0 
   ? topic.history.map((h, i) => `Attempt #${i+1} (${new Date(h.date).toLocaleDateString()}) - Score: ${h.evaluation.score}%
-  Explanation: "${h.explanation}"
-  Thoughts: "${h.evaluation.thoughts || 'None'}"\n--------------------`).join("\n")
+  - Explanation: "${h.explanation}"
+  - Reflection: "${h.evaluation.thoughts || 'None'}"`).join("\n\n")
   : "No older attempts archived."
 }
 
-=========================================
-Made with Seventy-Two (Ella Adams & AI Project)
-=========================================`;
+==================================================
+Made with Seventy-Two (72)
+==================================================`;
 
     const blob = new Blob([fileContent], { type: "text/plain;charset=utf-8" });
     const link = document.createElement("a");
@@ -170,7 +162,7 @@ Made with Seventy-Two (Ella Adams & AI Project)
     <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl p-4 md:p-6 animate-fade-in relative">
       
       {/* Detail header */}
-      <div className="flex justify-between items-start border-b border-white/10 pb-4 mb-4 gap-4">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-white/10 pb-4 mb-4 gap-4">
         <div>
           <h3 className="text-xl md:text-2xl font-serif font-bold text-white tracking-tight">
             {topic.title}
@@ -185,15 +177,28 @@ Made with Seventy-Two (Ella Adams & AI Project)
           </p>
         </div>
 
-        {/* Notes downloader */}
-        <button
-          onClick={triggerNotesDownload}
-          className="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white font-mono text-xs flex items-center gap-1.5 cursor-pointer border border-white/10 transition-all shadow-md shrink-0 active:scale-95"
-          title="Download study materials offline"
-        >
-          <FileDown className="w-4 h-4 text-stone-300" />
-          <span>Export Notes</span>
-        </button>
+        {/* Notes downloader with file name editing capabilities */}
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full md:w-auto">
+          <div className="flex items-center bg-white/5 border border-white/10 rounded-lg px-2.5 py-1.5 focus-within:border-white/20 transition-all">
+            <span className="font-mono text-[10px] text-stone-500 mr-2 uppercase shrink-0">File:</span>
+            <input
+              type="text"
+              value={exportFileName}
+              onChange={(e) => setExportFileName(e.target.value)}
+              placeholder="filename"
+              className="bg-transparent text-white font-mono text-xs focus:outline-none w-32 sm:w-40 border-b border-dashed border-white/10 focus:border-white/30 pb-0.5"
+            />
+            <span className="font-mono text-[10px] text-stone-500 shrink-0 select-none ml-1">.txt</span>
+          </div>
+          <button
+            onClick={triggerNotesDownload}
+            className="px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white font-mono text-xs flex items-center justify-center gap-1.5 cursor-pointer border border-white/10 transition-all shadow-md shrink-0 active:scale-95"
+            title="Download study materials offline"
+          >
+            <FileDown className="w-3.5 h-3.5 text-stone-300" />
+            <span>Export Notes</span>
+          </button>
+        </div>
       </div>
 
       {/* Embedded reference clipping pad */}

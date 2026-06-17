@@ -12,7 +12,7 @@ import Dashboard from "./components/Dashboard";
 import CreateTopic from "./components/CreateTopic";
 import TopicList from "./components/TopicList";
 import TopicDetail from "./components/TopicDetail";
-import { Info, Sparkles, AlertCircle, Heart } from "lucide-react";
+import { Info, Sparkles, AlertCircle, Heart, Github } from "lucide-react";
 
 export default function App() {
   const [topics, setTopics] = useState<LearningTopic[]>([]);
@@ -136,11 +136,27 @@ export default function App() {
       </div>
 
       {/* Humble simple minimalist footer */}
-      <footer className="mt-16 pt-8 border-t border-white/10 text-center font-mono text-[10px] text-stone-500 flex flex-col sm:flex-row justify-between items-center gap-3">
-        <span>© {new Date().getFullYear()} Seventy-Two. All data resides safely in your browser storage.</span>
-        <span className="flex items-center gap-1">
-          Made for Ella Adams with <Heart className="w-3 h-3 text-stone-500 fill-stone-500" /> & Deep Understanding
-        </span>
+      <footer className="mt-16 pt-8 border-t border-white/10 text-center font-mono text-[10px] text-stone-500 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div className="flex flex-col items-start gap-1.5 text-left">
+          <span>© {new Date().getFullYear()} Seventy-Two. All data resides safely in your browser storage.</span>
+          <span className="text-[9px] text-stone-600 block leading-normal">
+            with ❤️ from the neurodivergent family. (Don't mind me, off topic: I also explain quantum and AI simply, check out my <a href="https://ladyanuelle.vercel.app" target="_blank" rel="noreferrer" className="underline hover:text-stone-400">studio</a>.)
+          </span>
+        </div>
+        <div className="flex items-center gap-4 shrink-0">
+          <a
+            href="https://github.com/Emmanuella-Adams/72"
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center gap-1 hover:text-white transition-colors"
+          >
+            <Github className="w-3.5 h-3.5" />
+            <span>GitHub</span>
+          </a>
+          <span className="flex items-center gap-1.5">
+            Made by <a href="https://emmanuellaadams.vercel.app/" target="_blank" rel="noreferrer" className="underline text-stone-400 hover:text-white transition-colors">Emma Adams</a> with <Heart className="w-3 h-3 text-stone-500 fill-stone-500" />
+          </span>
+        </div>
       </footer>
     </div>
   );

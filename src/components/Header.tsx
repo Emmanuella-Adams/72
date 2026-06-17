@@ -19,7 +19,7 @@ export default function Header() {
   }, []);
 
   return (
-    <header className={`relative pb-6 mb-8 border-b border-white/10 ${isStoryOpen ? "z-[99]" : "z-10"}`}>
+    <header className={`relative pb-6 mb-8 border-b border-white/10 ${isStoryOpen ? "z-[99999]" : "z-10"}`}>
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-3">
@@ -58,7 +58,7 @@ export default function Header() {
 
       {/* Confession / About Modal */}
       {isStoryOpen && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 overflow-y-auto animate-fade-in">
+        <div className="fixed inset-0 bg-black/95 backdrop-blur-lg z-[99999] flex items-center justify-center p-4 overflow-y-auto animate-fade-in">
           <div className="relative w-full max-w-2xl bg-[#0e0e0e] border border-white/15 rounded-3xl p-6 md:p-8 shadow-2xl shadow-black/90">
             {/* Close Button */}
             <button
