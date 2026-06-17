@@ -17,7 +17,8 @@ import {
   FileDown,
   CalendarDays,
   PenTool,
-  AlertTriangle
+  AlertTriangle,
+  Check
 } from "lucide-react";
 
 interface TopicDetailProps {
@@ -330,65 +331,73 @@ Made with Seventy-Two (Ella Adams & AI Project)
             {/* Checklist elements */}
             <div className="space-y-3.5">
               
-              <label className="flex items-start gap-3 cursor-pointer select-none">
-                <input
-                  type="checkbox"
-                  checked={recalledCore}
-                  onChange={(e) => {
-                    setRecalledCore(e.target.checked);
-                  }}
-                  className="w-4 h-4 rounded border-white/20 bg-white/5 text-white focus:ring-0 mt-0.5 cursor-pointer accent-white"
-                />
+              <div 
+                onClick={() => setRecalledCore(!recalledCore)}
+                className="flex items-start gap-3 cursor-pointer select-none group focus:outline-none"
+              >
+                <div className={`w-5 h-5 rounded-lg border flex items-center justify-center shrink-0 mt-0.5 transition-all duration-150 ${
+                  recalledCore 
+                    ? 'bg-white border-white text-black' 
+                    : 'border-white/20 bg-white/5 text-transparent group-hover:border-white/40'
+                }`}>
+                  <Check className="w-3.5 h-3.5 stroke-[3.5]" />
+                </div>
                 <div className="text-xs leading-normal">
                   <p className="font-mono font-semibold text-white">Grand Concept Recalled</p>
                   <p className="text-stone-400 font-sans mt-0.5">I explained the big-picture theory/mechanism comfortably in my own words.</p>
                 </div>
-              </label>
+              </div>
 
-              <label className="flex items-start gap-3 cursor-pointer select-none">
-                <input
-                  type="checkbox"
-                  checked={recalledDetails}
-                  onChange={(e) => {
-                    setRecalledDetails(e.target.checked);
-                  }}
-                  className="w-4 h-4 rounded border-white/20 bg-white/5 text-white focus:ring-0 mt-0.5 cursor-pointer accent-white"
-                />
+              <div 
+                onClick={() => setRecalledDetails(!recalledDetails)}
+                className="flex items-start gap-3 cursor-pointer select-none group focus:outline-none"
+              >
+                <div className={`w-5 h-5 rounded-lg border flex items-center justify-center shrink-0 mt-0.5 transition-all duration-150 ${
+                  recalledDetails 
+                    ? 'bg-white border-white text-black' 
+                    : 'border-white/20 bg-white/5 text-transparent group-hover:border-white/40'
+                }`}>
+                  <Check className="w-3.5 h-3.5 stroke-[3.5]" />
+                </div>
                 <div className="text-xs leading-normal">
                   <p className="font-mono font-semibold text-white">Technical Facts & Terms Correct</p>
                   <p className="text-stone-400 font-sans mt-0.5">I listed crucial words, key parameters, values, definitions, or code syntax correctly.</p>
                 </div>
-              </label>
+              </div>
 
-              <label className="flex items-start gap-3 cursor-pointer select-none">
-                <input
-                  type="checkbox"
-                  checked={recalledCaveats}
-                  onChange={(e) => {
-                    setRecalledCaveats(e.target.checked);
-                  }}
-                  className="w-4 h-4 rounded border-white/20 bg-white/5 text-white focus:ring-0 mt-0.5 cursor-pointer accent-white"
-                />
+              <div 
+                onClick={() => setRecalledCaveats(!recalledCaveats)}
+                className="flex items-start gap-3 cursor-pointer select-none group focus:outline-none"
+              >
+                <div className={`w-5 h-5 rounded-lg border flex items-center justify-center shrink-0 mt-0.5 transition-all duration-150 ${
+                  recalledCaveats 
+                    ? 'bg-white border-white text-black' 
+                    : 'border-white/20 bg-white/5 text-transparent group-hover:border-white/40'
+                }`}>
+                  <Check className="w-3.5 h-3.5 stroke-[3.5]" />
+                </div>
                 <div className="text-xs leading-normal">
-                  <p className="font-mono font-semibold text-white">Caveats, Edges, & Disclaimers Accounts</p>
+                  <p className="font-mono font-semibold text-white">Caveats, Edges, & Disclaimers Accounted</p>
                   <p className="text-stone-400 font-sans mt-0.5">I accounted for boundary limitations, risks, exceptions, or common pitfalls.</p>
                 </div>
-              </label>
+              </div>
 
-              <label className="flex items-start gap-3 cursor-pointer select-none">
-                <input
-                  type="checkbox"
-                  checked={notesCorrect}
-                  onChange={(e) => {
-                    setNotesCorrect(e.target.checked);
-                  }}
-                  className="w-4 h-4 rounded border-white/20 bg-white/5 text-white focus:ring-0 mt-0.5 cursor-pointer accent-white"
-                />
+              <div 
+                onClick={() => setNotesCorrect(!notesCorrect)}
+                className="flex items-start gap-3 cursor-pointer select-none group focus:outline-none"
+              >
+                <div className={`w-5 h-5 rounded-lg border flex items-center justify-center shrink-0 mt-0.5 transition-all duration-150 ${
+                  notesCorrect 
+                    ? 'bg-white border-white text-black' 
+                    : 'border-white/20 bg-white/5 text-transparent group-hover:border-white/40'
+                }`}>
+                  <Check className="w-3.5 h-3.5 stroke-[3.5]" />
+                </div>
                 <div className="text-xs leading-normal">
                   <p className="font-mono font-semibold text-white">Complete Recall Honesty Metric</p>
                   <p className="text-stone-400 font-sans mt-0.5">I wrote this down without cheating, looking back, or re-reading my clippings beforehand!</p>
                 </div>
-              </label>
+              </div>
 
             </div>
 

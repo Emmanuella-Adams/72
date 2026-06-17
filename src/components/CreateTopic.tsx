@@ -59,15 +59,12 @@ export default function CreateTopic({ onAddTopic }: CreateTopicProps) {
       {!isOpen ? (
         <button
           onClick={() => setIsOpen(true)}
-          className="w-full py-4 px-6 rounded-2xl border border-white/10 bg-white/5 text-white hover:bg-white/10 hover:border-white/20 active:scale-[0.99] font-serif font-bold text-left cursor-pointer transition-all flex items-center justify-between shadow-xl shadow-black/30"
+          className="w-full py-4 px-6 rounded-2xl border border-white/10 bg-white/5 text-white hover:bg-white/10 hover:border-white/20 active:scale-[0.99] font-serif font-bold text-left cursor-pointer transition-all flex items-center gap-3 shadow-xl shadow-black/30"
         >
-          <span className="flex items-center gap-3">
-            <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
-              <Plus className="w-4 h-4 text-white" />
-            </span>
-            <span>Record a New Hyperfocus Sprint</span>
+          <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
+            <Plus className="w-4 h-4 text-white" />
           </span>
-          <span className="text-xs font-mono text-stone-400 font-normal">Sleek Notebook Style</span>
+          <span>Record a New Hyperfocus Sprint</span>
         </button>
       ) : (
         <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-5 md:p-6 rounded-3xl shadow-2xl shadow-black/50 animate-fade-in relative">
